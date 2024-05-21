@@ -4,8 +4,8 @@
   "description": "ph-level-2-apollo-batch-3-assignment-2",
   "main": "index.js",
   "scripts": {
-    "startdev": "nodemon ./dist/app.js",
-    "build":"tsc",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "watch": "tsc --watch",
     "lint": "eslint src --ignore-path .eslintignore --ext .js,.ts",
     "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,6 +28,7 @@
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }
 }

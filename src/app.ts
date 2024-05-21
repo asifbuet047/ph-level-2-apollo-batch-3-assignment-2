@@ -9,18 +9,15 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 
+
 app.get("/", (req: Request, res: Response) => {
   console.log(req.params);
   res.json({
     success: true,
-    message: "Connection successful",
+    message: "Connection successfu",
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(
-    `ph-level-2-apollo-batch-3-assignment-2 server is running on port ${process.env.PORT}`,
-  );
-});
+
 
 export default app;
