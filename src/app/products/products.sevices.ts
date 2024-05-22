@@ -48,9 +48,6 @@ const searchProductIntoMongoDB = async (searchTerm: string) => {
             category: { $regex: searchTerm, $options: "i" },
           },
         ],
-        //name: { $regex: searchTerm, $options: "i" },
-        // description: { $regex: searchTerm, $options: "i" },
-        // category: { $regex: searchTerm, $options: "i" },
       },
     },
     {
