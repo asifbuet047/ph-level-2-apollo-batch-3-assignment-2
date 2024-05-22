@@ -37,7 +37,20 @@ const searchProductIntoMongoDB = async (searchTerm: string) => {
   const result = await Products.aggregate([
     {
       $match: {
-        name: { $regex: searchTerm, $options: "i" },
+        $or: [
+          {
+            name: { $regex: searchTerm, $options: "i" },
+          },
+          {
+            description: { $regex: searchTerm, $options: "i" },
+          },
+          {
+            category: { $regex: searchTerm, $options: "i" },
+          },
+        ],
+        //name: { $regex: searchTerm, $options: "i" },
+        // description: { $regex: searchTerm, $options: "i" },
+        // category: { $regex: searchTerm, $options: "i" },
       },
     },
     {
