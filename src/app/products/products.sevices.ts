@@ -28,9 +28,15 @@ const updateProductInformationIntoMongoDB = async (
   return result;
 };
 
+const delectProductFromMongoDB = async (productId: string) => {
+  const result = await Products.findOneAndDelete({ _id: productId });
+  return result;
+};
+
 export const ProductServices = {
   createProductIntoMongoDB,
   retriveAllProductsFromMongoDB,
   retriveSpecificProductFromMongoDB,
   updateProductInformationIntoMongoDB,
+  delectProductFromMongoDB,
 };

@@ -79,11 +79,30 @@ const updateProductInformation = async (
       productId,
       validatedData,
     );
-   
+
     response.status(200).json({
       success: true,
       message: "Specific Product fetched successfully",
       data: result,
+    });
+  } catch (error) {
+    response.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
+
+const deleteProduct = async (request: Request, response: Response) => {
+  try {
+    const { productId } = request.params;
+
+    const result = await ProductServices.delectProductFromMongoDB(productId);
+
+    response.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+      data: null,
     });
   } catch (error) {
     response.status(500).json({
@@ -98,4 +117,5 @@ export const ProductController = {
   retriveAllProducts,
   retriveSpecificProduct,
   updateProductInformation,
+  deleteProduct,
 };
