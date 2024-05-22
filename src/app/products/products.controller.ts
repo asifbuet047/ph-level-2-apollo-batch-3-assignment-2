@@ -15,11 +15,18 @@ const createProduct = async (request: Request, response: Response) => {
       message: "Product created successfully",
       data: result,
     });
-  } catch (error) {
-    response.status(500).json({
-      success: false,
-      message: error,
-    });
+  } catch (error: any) {
+    if (error.errorResponse) {
+      response.status(500).json({
+        success: false,
+        message: `${error.keyValue.name} is already in inventory`,
+      });
+    } else {
+      response.status(500).json({
+        success: false,
+        message: error,
+      });
+    }
   }
 };
 
