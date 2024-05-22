@@ -14,8 +14,8 @@
 - Create .env file in root directory
 
 ```
-PORT = 6000
-MONGODB_URL = _Your mongodb server link_
+PORT = YOUR_DESIRED_PORT_NUMBER
+MONGODB_URL = YOUR_MONGODB_SERVER_LINK
 ```
 
 - Now run this command `npm run start:dev`. In your terminal you can see the server is listening at your port in env config file
