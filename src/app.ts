@@ -9,7 +9,6 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 
-
 app.get("/", (req: Request, res: Response) => {
   console.log(req.params);
   res.json({
@@ -17,7 +16,5 @@ app.get("/", (req: Request, res: Response) => {
     message: "Connection successfu",
   });
 });
-
-
 
 export default app;
