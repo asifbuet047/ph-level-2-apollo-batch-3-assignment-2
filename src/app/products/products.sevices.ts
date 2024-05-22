@@ -1,13 +1,17 @@
 import { TProduct } from "./products.inteface";
-import { Product } from "./products.model";
+import { Products } from "./products.model";
 
 const createProductIntoMongoDB = async (product: TProduct) => {
-  const result = await Product.create(product);
+  const result = await Products.create(product);
+  return result;
+};
 
-  console.log(result);
+const retriveAllProductsFromMongoDB = async () => {
+  const result = await Products.find();
   return result;
 };
 
 export const ProductServices = {
   createProductIntoMongoDB,
+  retriveAllProductsFromMongoDB,
 };

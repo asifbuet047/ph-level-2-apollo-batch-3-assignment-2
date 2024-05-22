@@ -21,7 +21,22 @@ const createProduct = async (request: Request, response: Response) => {
       data: result,
     });
   } catch (error) {
+    response.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
 
+const retriveAllProducts = async (request: Request, response: Response) => {
+  try {
+    const result = await ProductServices.retriveAllProductsFromMongoDB();
+    response.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      data: result,
+    });
+  } catch (error) {
     response.status(500).json({
       success: false,
       message: error,
@@ -31,4 +46,5 @@ const createProduct = async (request: Request, response: Response) => {
 
 export const ProductController = {
   createProduct,
+  retriveAllProducts,
 };
