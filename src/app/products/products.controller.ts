@@ -58,7 +58,6 @@ const retriveAllProductsOrSearchProduct = async (
 const retriveSpecificProduct = async (request: Request, response: Response) => {
   try {
     const { productId } = request.params;
-    console.log(productId);
 
     const result =
       await ProductServices.retriveSpecificProductFromMongoDB(productId);
