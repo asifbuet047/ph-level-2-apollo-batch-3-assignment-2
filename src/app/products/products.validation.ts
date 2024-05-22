@@ -1,12 +1,15 @@
 import zod from "zod";
 
 const VSProduct = zod.object({
-  name: zod.string().trim(),
-  description: zod.string().trim(),
+  name: zod.string().trim().min(2, { message: "Name is required" }),
+  description: zod
+    .string()
+    .trim()
+    .min(5, { message: "Description is required" }),
   price: zod
     .number()
     .nonnegative({ message: "Product price cant be negetive" }),
-  category: zod.string().trim(),
+  category: zod.string().trim().min(1, { message: "Category is required" }),
   tags: zod.string().array().nonempty({ message: "Tags cant be empty" }),
   variants: zod
     .object({
