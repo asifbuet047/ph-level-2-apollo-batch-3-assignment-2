@@ -108,7 +108,7 @@ const deleteProduct = async (request: Request, response: Response) => {
   try {
     const { productId } = request.params;
 
-    const result = await ProductServices.delectProductFromMongoDB(productId);
+    await ProductServices.delectProductFromMongoDB(productId);
 
     response.status(200).json({
       success: true,

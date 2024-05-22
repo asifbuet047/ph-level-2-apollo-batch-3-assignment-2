@@ -1,22 +1,26 @@
 import { Request, Response } from "express";
 import { OrderServices } from "./orders.services";
 import { ProductServices } from "../products/products.sevices";
+import VSOrder from "./orders.validation";
 
 const createOrder = async (request: Request, response: Response) => {
   try {
     const { data: orderData } = request.body;
+
+    const validatedData = VSOrder.parse(orderData);
     const productDetails =
       await ProductServices.retriveSpecificProductFromMongoDB(
-        orderData.productId,
+        validatedData.productId,
       );
 
     if (productDetails) {
       const availableQuantity: number = productDetails.inventory.quantity;
-      const orderedQuantity: number = orderData.quantity;
+      const orderedQuantity: number = validatedData.quantity;
       const remainingQuantity: number = availableQuantity - orderedQuantity;
 
       if (availableQuantity >= orderedQuantity) {
-        const result = await OrderServices.createOrderIntoMongoDB(orderData);
+        const result =
+          await OrderServices.createOrderIntoMongoDB(validatedData);
         response.status(200).json({
           success: true,
           message: "Order created successfully",
@@ -29,7 +33,7 @@ const createOrder = async (request: Request, response: Response) => {
         }
 
         await ProductServices.updateProductInformationIntoMongoDB(
-          orderData.productId,
+          validatedData.productId,
           productDetails,
         );
       } else {
