@@ -44,7 +44,28 @@ const retriveAllProducts = async (request: Request, response: Response) => {
   }
 };
 
+const retriveSpecificProduct = async (request: Request, response: Response) => {
+  try {
+    const { productId } = request.params;
+    console.log(productId);
+
+    const result =
+      await ProductServices.retriveSpecificProductFromMongoDB(productId);
+    response.status(200).json({
+      success: true,
+      message: "Specific Product fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    response.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
+
 export const ProductController = {
   createProduct,
   retriveAllProducts,
+  retriveSpecificProduct,
 };

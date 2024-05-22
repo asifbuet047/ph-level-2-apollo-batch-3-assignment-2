@@ -7,11 +7,17 @@ const createProductIntoMongoDB = async (product: TProduct) => {
 };
 
 const retriveAllProductsFromMongoDB = async () => {
-  const result = await Products.find();
+  const result = await Products.aggregate([{ $project: { __v: 0 } }]);
+  return result;
+};
+
+const retriveSpecificProductFromMongoDB = async (productId: string) => {
+  const result = await Products.findById(productId, { __v: 0 });
   return result;
 };
 
 export const ProductServices = {
   createProductIntoMongoDB,
   retriveAllProductsFromMongoDB,
+  retriveSpecificProductFromMongoDB,
 };
