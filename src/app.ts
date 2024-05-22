@@ -21,6 +21,33 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
     success: true,
     message: "Connection successful",
+    someEndpoints: [
+      {
+        title: "Retrive all products",
+        method: "GET",
+        endpoint: "/api/products",
+      },
+      {
+        title: "Retrive specific product",
+        method: "GET",
+        endpoint: "/api/products/:productId",
+      },
+      {
+        title: "Search product",
+        method: "GET",
+        endpoint: "/api/products?searchTerm=something",
+      },
+      {
+        title: "Retrive all orders",
+        method: "GET",
+        endpoint: "/api/orders",
+      },
+      {
+        title: "Retrive user orders",
+        method: "GET",
+        endpoint: "api/orders?email=yourmail@gmail.com",
+      },
+    ],
   });
 });
 
