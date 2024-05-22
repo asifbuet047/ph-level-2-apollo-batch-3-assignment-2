@@ -11,7 +11,20 @@ const retriveAllOrdersFromMongoDB = async () => {
   return result;
 };
 
+const retriveUserOrdersFromMongoDB = async (userEmail: string) => {
+  const result = await Orders.aggregate([
+    {
+      $match: { email: userEmail },
+    },
+    {
+      $project: { __v: 0 },
+    },
+  ]);
+  return result;
+};
+
 export const OrderServices = {
   createOrderIntoMongoDB,
   retriveAllOrdersFromMongoDB,
+  retriveUserOrdersFromMongoDB,
 };
