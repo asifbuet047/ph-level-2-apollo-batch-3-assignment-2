@@ -6,11 +6,6 @@ const createProduct = async (request: Request, response: Response) => {
   try {
     const { data: productData } = request.body;
 
-    console.log({
-      from: "product.comtroller.ts",
-      message: productData,
-    });
-
     const validatedData = VSProduct.parse(productData);
 
     const result =
