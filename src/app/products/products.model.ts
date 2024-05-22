@@ -5,7 +5,7 @@ import {
   TProductVariant,
 } from "./products.inteface";
 
-const productVariantSchema = new Schema<TProductVariant>(
+const SProductVariant = new Schema<TProductVariant>(
   {
     type: String,
     value: String,
@@ -15,7 +15,7 @@ const productVariantSchema = new Schema<TProductVariant>(
   },
 );
 
-const productInventorySchema = new Schema<TProductInventory>(
+const SProductInventory = new Schema<TProductInventory>(
   {
     quantity: Number,
     inStock: Boolean,
@@ -25,10 +25,11 @@ const productInventorySchema = new Schema<TProductInventory>(
   },
 );
 
-const productSchema = new Schema<TProduct>({
+const SProduct = new Schema<TProduct>({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   description: {
     type: String,
@@ -47,13 +48,13 @@ const productSchema = new Schema<TProduct>({
     required: true,
   },
   variants: {
-    type: [productVariantSchema],
+    type: [SProductVariant],
     required: true,
   },
   inventory: {
-    type: productInventorySchema,
+    type: SProductInventory,
     required: true,
   },
 });
 
-export const Product = model<TProduct>("product", productSchema);
+export const Product = model<TProduct>("product", SProduct);

@@ -1,15 +1,26 @@
 import { Request, Response } from "express";
 import { ProductServices } from "./products.sevices";
+import VSProduct from "./products.validation";
+import { TProduct } from "./products.inteface";
 
 const createProduct = async (request: Request, response: Response) => {
   try {
     const { data: productData } = request.body;
 
-    console.log(productData);
+    console.log({
+      from: "product.comtroller.ts",
+      message: productData,
+    });
 
-    const result = await ProductServices.createProductIntoMongoDB(productData);
+    const validatedData = VSProduct.parse(productData);
 
-    console.log(result);
+    const result =
+      await ProductServices.createProductIntoMongoDB(validatedData);
+
+    console.log({
+      from: "product.comtroller.ts",
+      message: result,
+    });
 
     response.status(200).json({
       success: true,
@@ -19,7 +30,7 @@ const createProduct = async (request: Request, response: Response) => {
   } catch (error) {
     response.status(500).json({
       success: false,
-      message: "Product creation unsuccessfully",
+      message: `Product name ${error}`,
     });
   }
 };
