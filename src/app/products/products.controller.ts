@@ -64,8 +64,38 @@ const retriveSpecificProduct = async (request: Request, response: Response) => {
   }
 };
 
+const updateProductInformation = async (
+  request: Request,
+  response: Response,
+) => {
+  try {
+    const { productId } = request.params;
+
+    const { data: productUpdatedData } = request.body;
+
+    const validatedData = VSProduct.parse(productUpdatedData);
+
+    const result = await ProductServices.updateProductInformationIntoMongoDB(
+      productId,
+      validatedData,
+    );
+   
+    response.status(200).json({
+      success: true,
+      message: "Specific Product fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    response.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
+
 export const ProductController = {
   createProduct,
   retriveAllProducts,
   retriveSpecificProduct,
+  updateProductInformation,
 };

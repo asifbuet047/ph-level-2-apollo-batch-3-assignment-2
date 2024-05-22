@@ -16,8 +16,21 @@ const retriveSpecificProductFromMongoDB = async (productId: string) => {
   return result;
 };
 
+const updateProductInformationIntoMongoDB = async (
+  productId: string,
+  productData: TProduct,
+) => {
+  const result = await Products.findOneAndUpdate(
+    { _id: productId },
+    productData,
+    { returnDocument: "after" },
+  );
+  return result;
+};
+
 export const ProductServices = {
   createProductIntoMongoDB,
   retriveAllProductsFromMongoDB,
   retriveSpecificProductFromMongoDB,
+  updateProductInformationIntoMongoDB,
 };
