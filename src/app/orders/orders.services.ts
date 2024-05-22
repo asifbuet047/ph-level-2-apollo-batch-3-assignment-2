@@ -6,6 +6,12 @@ const createOrderIntoMongoDB = async (order: TOrder) => {
   return result;
 };
 
+const retriveAllOrdersFromMongoDB = async () => {
+  const result = await Orders.aggregate([{ $project: { __v: 0 } }]);
+  return result;
+};
+
 export const OrderServices = {
   createOrderIntoMongoDB,
+  retriveAllOrdersFromMongoDB,
 };
