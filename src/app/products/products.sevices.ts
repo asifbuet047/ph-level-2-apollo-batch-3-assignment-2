@@ -33,10 +33,26 @@ const delectProductFromMongoDB = async (productId: string) => {
   return result;
 };
 
+const searchProductIntoMongoDB = async (searchTerm: string) => {
+  const result = await Products.aggregate([
+    {
+      $match: {
+        name: { $regex: searchTerm, $options: "i" },
+      },
+    },
+    {
+      $project: { __v: 0 },
+    },
+  ]);
+
+  return result;
+};
+
 export const ProductServices = {
   createProductIntoMongoDB,
   retriveAllProductsFromMongoDB,
   retriveSpecificProductFromMongoDB,
   updateProductInformationIntoMongoDB,
   delectProductFromMongoDB,
+  searchProductIntoMongoDB,
 };

@@ -28,14 +28,30 @@ const createProduct = async (request: Request, response: Response) => {
   }
 };
 
-const retriveAllProducts = async (request: Request, response: Response) => {
+const retriveAllProductsOrSearchProduct = async (
+  request: Request,
+  response: Response,
+) => {
   try {
-    const result = await ProductServices.retriveAllProductsFromMongoDB();
-    response.status(200).json({
-      success: true,
-      message: "Product fetched successfully",
-      data: result,
-    });
+    if (request.query.searchTerm) {
+      const term = request.query.searchTerm;
+
+      const result = await ProductServices.searchProductIntoMongoDB(
+        term as string,
+      );
+      response.status(200).json({
+        success: true,
+        message: `Product matching search term ${term} fetched successfully`,
+        data: result.length > 0 ? result : "No product found",
+      });
+    } else {
+      const result = await ProductServices.retriveAllProductsFromMongoDB();
+      response.status(200).json({
+        success: true,
+        message: "Products fetched successfully",
+        data: result,
+      });
+    }
   } catch (error) {
     response.status(500).json({
       success: false,
@@ -114,7 +130,7 @@ const deleteProduct = async (request: Request, response: Response) => {
 
 export const ProductController = {
   createProduct,
-  retriveAllProducts,
+  retriveAllProductsOrSearchProduct,
   retriveSpecificProduct,
   updateProductInformation,
   deleteProduct,
